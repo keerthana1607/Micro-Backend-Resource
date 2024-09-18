@@ -33,24 +33,24 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public List<Project> getAllProjects() {
-		return projectRepo.getAllProjects(); // Use the custom method
+		return projectRepo.getAllProjects(); 
 	}
 
 	@Override
 	public Project getProjectById(int projectId) {
-		return projectRepo.findProjectById(projectId); // Use the custom method
+		return projectRepo.findProjectById(projectId); 
 	}
 
 	@Override
 	public Project createProject(Project project) {
-		return projectRepo.saveProject(project); // Use the custom method
+		return projectRepo.saveProject(project); 
 	}
 
 	@Override
 	public Project updateProject(int projectId, Project project) {
 		if (projectRepo.existsById(projectId)) {
 			project.setProjectId(projectId);
-			return projectRepo.saveProject(project); // Use the custom method
+			return projectRepo.saveProject(project); 
 		}
 		return null;
 	}
@@ -58,7 +58,7 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public boolean deleteProject(int projectId) {
 		if (projectRepo.existsById(projectId)) {
-			projectRepo.deleteProject(projectId); // Use the custom method
+			projectRepo.deleteProject(projectId); 
 			return true;
 		}
 		return false;

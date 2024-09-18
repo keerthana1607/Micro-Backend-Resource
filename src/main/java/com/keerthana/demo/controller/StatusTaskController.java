@@ -27,7 +27,7 @@ import com.keerthana.demo.service.StatusTaskService;
 import com.keerthana.demo.service.TaskService;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/status")
 public class StatusTaskController {
 	
@@ -40,36 +40,6 @@ public class StatusTaskController {
 	@Autowired
 	private TaskService taskservice;
 	
-//	@PostMapping("/create")
-//	public ResponseEntity<?> createStatus(@RequestBody StatusTask statusTaskRequest) {
-//	    if (statusTaskRequest.getEmp() == null || statusTaskRequest.getTask() == null) {
-//	        return ResponseEntity.badRequest().body("Employee or Task information is missing");
-//	    }
-//
-//	    int userId = statusTaskRequest.getEmp().getUserId(); // Ensure `StatusTask` has a `getEmp()` method
-//	    int taskId = statusTaskRequest.getTask().getTaskId(); // Ensure `StatusTask` has a `getTask()` method
-//
-//	    // Fetch employee and task based on IDs from the request
-//	    Optional<LoginEmp> loginEmpOptional = Optional.ofNullable(loginservice.userfind(userId));
-//	    Optional<Task> taskOptional = Optional.ofNullable(taskservice.getTaskById(taskId));
-//
-//	    // Check if both entities are present
-//	    if (!loginEmpOptional.isPresent() || !taskOptional.isPresent()) {
-//	        return ResponseEntity.badRequest().body("Employee or Task not found");
-//	    }
-//
-//	    // Create StatusTask instance
-//	    StatusTask statusTask = new StatusTask();
-//	    statusTask.setTaskStatus(statusTaskRequest.getTaskStatus());
-//	    statusTask.setTotalHours(statusTaskRequest.getTotalHours());
-//	    statusTask.setEmp(loginEmpOptional.get()); // Assuming StatusTask has a LoginEmp field
-//	    statusTask.setTask(taskOptional.get()); // Assuming StatusTask has a Task field
-//
-//	    // Save StatusTask
-//	    statusService.createStatusTask(statusTask);
-//
-//	    return ResponseEntity.ok().build();
-//	}
 
 	@PostMapping("/create")
 	public ResponseEntity<?> createStatus(@RequestBody StatusTask statusTaskRequest) {
@@ -80,26 +50,26 @@ public class StatusTaskController {
 	    int userId = statusTaskRequest.getEmp().getUserId();
 	    int taskId = statusTaskRequest.getTask().getTaskId();
 
-	    // Fetch employee and task based on IDs from the request
+	    
 	    Optional<LoginEmp> loginEmpOptional = Optional.ofNullable(loginservice.userfind(userId));
 	    Optional<Task> taskOptional = Optional.ofNullable(taskservice.getTaskById(taskId));
 
-	    // Check if both entities are present
+	    
 	    if (!loginEmpOptional.isPresent() || !taskOptional.isPresent()) {
 	        return ResponseEntity.badRequest().body("Employee or Task not found");
 	    }
 
-	    // Create StatusTask instance
+	    
 	    StatusTask statusTask = new StatusTask();
 	    statusTask.setTaskStatus(statusTaskRequest.getTaskStatus());
 	    statusTask.setTotalHours(statusTaskRequest.getTotalHours());
 	    statusTask.setEmp(loginEmpOptional.get());
 	    statusTask.setTask(taskOptional.get());
 
-	    // Save StatusTask
+	  
 	    StatusTask createdStatusTask = statusService.createStatusTask(statusTask);
 
-	    // Return a structured response
+	    
 	    Map<String, Object> response = new HashMap<>();
 	    response.put("statusId", createdStatusTask.getStatusId());
 	    response.put("message", "Status successfully added");
@@ -109,14 +79,14 @@ public class StatusTaskController {
 
 
 
-    // Get all StatusTasks
+    
     @GetMapping("/getAll")
     public ResponseEntity<List<StatusTask>> getAllStatusTasks() {
         List<StatusTask> statusTasks = statusService.getAllStatusTasks();
         return new ResponseEntity<>(statusTasks, HttpStatus.OK);
     }
 
-    // Get StatusTask by ID
+    
     @GetMapping("/getbyId/{id}")
     public ResponseEntity<StatusTask> getStatusTaskById(@PathVariable("id") int statusId) {
         StatusTask statusTask = statusService.getStatusTaskById(statusId);
@@ -127,12 +97,12 @@ public class StatusTaskController {
         }
     }
 
-    // Update a StatusTask
+    
     @PutMapping("/update/{id}")
     public ResponseEntity<StatusTask> updateStatusTask(@PathVariable("id") int statusId, @RequestBody StatusTask statusTask) {
         StatusTask existingStatusTask = statusService.getStatusTaskById(statusId);
         if (existingStatusTask != null) {
-            statusTask.setStatusId(statusId); // Ensure ID is not changed
+            statusTask.setStatusId(statusId); 
             StatusTask updatedStatusTask = statusService.updateStatusTask(statusTask);
             return new ResponseEntity<>(updatedStatusTask, HttpStatus.OK);
         } else {
@@ -140,7 +110,7 @@ public class StatusTaskController {
         }
     }
 
-    // Delete a StatusTask by ID
+    
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteStatusTask(@PathVariable("id") int statusId) {
         StatusTask existingStatusTask = statusService.getStatusTaskById(statusId);

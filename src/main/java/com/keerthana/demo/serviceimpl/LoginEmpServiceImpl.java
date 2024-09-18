@@ -52,9 +52,7 @@ public class LoginEmpServiceImpl implements LoginEmpService {
 		}
 
 		
-//		public LoginEmp userLogin(String userName, String userPassword) {
-//			return userdao.userLogin(userName, userPassword);
-//		}
+
 
 		
 		public String getUserRole(String userName, String userPassword) {

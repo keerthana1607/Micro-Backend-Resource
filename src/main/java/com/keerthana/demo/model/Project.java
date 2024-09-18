@@ -33,10 +33,7 @@ public class Project {
 
 	private String projectStatus;
 
-//	@OneToMany
-//	private List<LoginEmp> emp;
-//	
-	
+
 	@OneToMany
 	private List<LoginEmp> emp;
 	

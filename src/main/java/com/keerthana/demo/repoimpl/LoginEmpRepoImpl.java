@@ -1,6 +1,7 @@
 package com.keerthana.demo.repoimpl;
 
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +35,7 @@ public class LoginEmpRepoImpl implements LoginEmpRepo {
 		return user;
 	}
 
-	@SuppressWarnings("unchecked")
+	
 	@Override
 	public List<LoginEmp> getUsers() {
 		return entityMan.createQuery("from LoginEmp").getResultList();
@@ -47,7 +48,7 @@ public class LoginEmpRepoImpl implements LoginEmpRepo {
 
 	}
 
-	@SuppressWarnings("unchecked")
+	
 	@Override
 	public List<Integer> getUserIdlist() {
 		Query q = entityMan.createQuery("SELECT c.userId FROM LoginEmp c");
@@ -55,7 +56,7 @@ public class LoginEmpRepoImpl implements LoginEmpRepo {
 
 	}
 
-	@SuppressWarnings("unchecked")
+	
 	public List<LoginEmp> searchUser(String userName) {
 		Query qry2 = entityMan.createQuery("from LoginEmp u where u.userName=?1");
 		qry2.setParameter(1, userName);
@@ -72,17 +73,17 @@ public class LoginEmpRepoImpl implements LoginEmpRepo {
 //		}
 
 	public String getUserRole(String userName, String userPassword) {
-		// Using JPQL to retrieve only the role
+		
 		String jpql = "SELECT u.role FROM LoginEmp u WHERE u.userName = :userName AND u.userPassword = :userPassword";
 		Query query = entityMan.createQuery(jpql);
 		query.setParameter("userName", userName);
 		query.setParameter("userPassword", userPassword);
 
-		// Execute the query and return the role
+		
 		try {
 			return (String) query.getSingleResult();
 		} catch (Exception e) {
-			// Handle no result or other exceptions appropriately
+			
 			return null;
 		}
 	}
@@ -96,7 +97,7 @@ public class LoginEmpRepoImpl implements LoginEmpRepo {
 
 	@Override
 	public List<LoginEmp> getAllUnmappedUsersList() {
-		// JPQL query to get employees who are not mapped to any project
+		
 	    String jpql = "SELECT l FROM LoginEmp l WHERE l.role = 'employee' AND l.userId NOT IN ("
                 + "SELECT e.userId FROM Project p JOIN p.emp e)";
 
@@ -117,7 +118,7 @@ public class LoginEmpRepoImpl implements LoginEmpRepo {
 	            userDetails.put("role", result[1]);
 	            return userDetails;
 	        } catch (Exception e) {
-	            // Handle exception or no result found
+	            
 	            return null;
 	        }
 	    }

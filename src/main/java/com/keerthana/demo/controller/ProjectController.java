@@ -1,6 +1,7 @@
 package com.keerthana.demo.controller;
 
 import java.util.Collections;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +26,7 @@ import com.keerthana.demo.service.LoginEmpService;
 import com.keerthana.demo.service.ProjectService;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/project")
 public class ProjectController {
 
@@ -52,69 +53,15 @@ public class ProjectController {
 	        }
 	    }
 
-//	    @PostMapping("/create")
-//	    public ResponseEntity<Project> createProject(@RequestBody Project project) {
-//	    	project.setProjectStatus("Pending");
-//	        Project createdProject = projectService.createProject(project);
-//	        return new ResponseEntity<>(createdProject, HttpStatus.CREATED);
-//	    }
-//	    
-	    
-	    
-//	    @PostMapping("/create")
-//	    public ResponseEntity<Project> createProject(@RequestBody Map<String, Object> request) {
-//	        try {
-//	            // Extract project details from the request map
-//	            Project project = extractProjectFromRequest(request);
-//
-//	            // Extract and log userId
-//	            Object userIdObj = request.get("userId");
-//	            Integer userId = null;
-//
-//	            if (userIdObj instanceof Number) {
-//	                userId = ((Number) userIdObj).intValue();
-//	            } else if (userIdObj instanceof String) {
-//	                try {
-//	                    userId = Integer.parseInt((String) userIdObj);
-//	                } catch (NumberFormatException e) {
-//	                    throw new IllegalArgumentException("Invalid data type for userId");
-//	                }
-//	            } else {
-//	                throw new IllegalArgumentException("Invalid data type for userId");
-//	            }
-//
-//	            // Log the userId
-//	            System.out.println("Fetching user with ID: " + userId);
-//
-//	            // Fetch the employee using userId
-//	            LoginEmp user = userservice.userfind(userId);
-//	            if (user == null) {
-//	                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//	            }
-//
-//	            // Add the single employee to the project
-//	            project.setEmp(Collections.singletonList(user));
-//	            
-//	            if (project.getProjectStatus() == null || project.getProjectStatus().isEmpty()) {
-//	                project.setProjectStatus("Pending");
-//	            }
-//
-//	            // Save the project
-//	            Project createdProject = projectService.createProject(project);
-//	            return new ResponseEntity<>(createdProject, HttpStatus.CREATED);
-//	        } catch (Exception e) {
-//	            e.printStackTrace();
-//	            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//	        }
-//	    }
+
 	    
 	    @PostMapping("/create")
 	    public ResponseEntity<Map<String, Integer>> createProject(@RequestBody Map<String, Object> request) {
 	        try {
-	            // Extract project details from the request map
+	            
 	            Project project = extractProjectFromRequest(request);
 
-	            // Extract and log userId
+	         
 	            Object userIdObj = request.get("userId");
 	            Integer userId = null;
 
@@ -130,26 +77,26 @@ public class ProjectController {
 	                throw new IllegalArgumentException("Invalid data type for userId");
 	            }
 
-	            // Log the userId
+	            
 	            System.out.println("Fetching user with ID: " + userId);
 
-	            // Fetch the employee using userId
+	        
 	            LoginEmp user = userservice.userfind(userId);
 	            if (user == null) {
 	                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	            }
 
-	            // Add the single employee to the project
+	          
 	            project.setEmp(Collections.singletonList(user));
 	            
 	            if (project.getProjectStatus() == null || project.getProjectStatus().isEmpty()) {
 	                project.setProjectStatus("Pending");
 	            }
 
-	            // Save the project
+	            
 	            Project createdProject = projectService.createProject(project);
 
-	            // Create a response map with the projectId
+	           
 	            Map<String, Integer> response = new HashMap<>();
 	            response.put("projectId", createdProject.getProjectId());
 
@@ -169,7 +116,7 @@ public class ProjectController {
 	        project.setEndDate((String) request.get("endDate"));
 	        project.setRequirementSkills((String) request.get("requirementSkills"));
 
-	        // Handle conversion for members
+	       
 	        Object membersObj = request.get("members");
 	        if (membersObj instanceof Number) {
 	            project.setMembers(((Number) membersObj).intValue());
@@ -232,7 +179,7 @@ public class ProjectController {
 	        if (!roles.isEmpty()) {
 	            return new ResponseEntity<>(roles, HttpStatus.OK);
 	        } else {
-	            return new ResponseEntity<>(HttpStatus.NO_CONTENT); // Use NO_CONTENT for empty results
+	            return new ResponseEntity<>(HttpStatus.NO_CONTENT); 
 	        }
 	    }
 

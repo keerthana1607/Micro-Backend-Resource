@@ -21,7 +21,7 @@ import com.keerthana.demo.service.ProjectService;
 import com.keerthana.demo.service.TaskService;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/task")
 public class TaskController {
 	
@@ -53,35 +53,27 @@ public class TaskController {
 	    @PostMapping("/create")
 	    public ResponseEntity<Task> createTask(@RequestBody Task tasks) {
 	    	
-	        // Validate if projectId is provided
+	
 	        if (tasks.getProject() == null || tasks.getProject().getProjectId() == 0) {
-	            return ResponseEntity.badRequest().body(null); // Handle error if projectId is missing
+	            return ResponseEntity.badRequest().body(null); 
 	        }
 
-	        // Save task logic
+	        
 	        Task createdTask = task.createTask(tasks);
 	        return ResponseEntity.ok(createdTask);
 	    }
 
-//	    @PutMapping("/{id}")
-//	    public ResponseEntity<Task> updateTask(@PathVariable("id") int taskId, @RequestBody Task tasks) {
-//	        Task updatedTask = task.updateTask(taskId, tasks);
-//	        if (updatedTask != null) {
-//	            return new ResponseEntity<>(updatedTask, HttpStatus.OK);
-//	        } else {
-//	            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//	        }
-//	    }
+
 	    
 	    @PutMapping("/{id}")
 	    public ResponseEntity<Task> updateTask(@PathVariable("id") int taskId, @RequestBody Task taskRequest) {
 	        Task existingTask = task.getTaskById(taskId);
 	        if (existingTask != null) {
-	            // Update existing task fields
+	            
 	            existingTask.setTaskName(taskRequest.getTaskName());
 	           
 
-	            // Fetch and set the project based on projectId
+	            
 	            if (taskRequest.getProject() != null && taskRequest.getProject().getProjectId() != 0) {
 	                Optional<Project> projects = Optional.ofNullable(project.getProjectById(taskRequest.getProject().getProjectId()));
 	                if (projects.isPresent()) {

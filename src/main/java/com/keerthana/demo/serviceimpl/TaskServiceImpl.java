@@ -40,7 +40,7 @@ public class TaskServiceImpl implements TaskService {
 //	public Task updateTask(int taskId, Task tasks) {
 //		if (repo.existsById(taskId)) {
 //			tasks.setTaskId(taskId);
-//            return repo.savetask(tasks); // Use the custom method
+//            return repo.savetask(tasks); 
 //        }
 //        return null;
 //    }
@@ -51,7 +51,7 @@ public class TaskServiceImpl implements TaskService {
 	            existingTask.setTaskName(taskRequest.getTaskName());
 	           
 
-	            // Fetch and set the project based on projectId
+	            
 	            if (taskRequest.getProject() != null && taskRequest.getProject().getProjectId() != 0) {
 	                Optional<Project> project = Optional.ofNullable(projectRepo.findProjectById(taskRequest.getProject().getProjectId()));
 	                if (project.isPresent()) {

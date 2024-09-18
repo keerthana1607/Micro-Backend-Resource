@@ -32,15 +32,17 @@ public class LoginEmp {
 	private String state;
 	private String bloodGroup;
 	private String languages;
+	private String gender;
 
 	public LoginEmp() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	
 	public LoginEmp(int userId, String userName, String userPassword, String userMobile, String userEmail,
 			String userAddress, String role, String skills, String experience, String projectsWorked, String degree,
-			String dob, String state, String bloodGroup, String languages) {
+			String dob, String state, String bloodGroup, String languages, String gender) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
@@ -57,7 +59,9 @@ public class LoginEmp {
 		this.state = state;
 		this.bloodGroup = bloodGroup;
 		this.languages = languages;
+		this.gender = gender;
 	}
+
 
 	public int getUserId() {
 		return userId;
@@ -179,4 +183,16 @@ public class LoginEmp {
 		this.languages = languages;
 	}
 
+
+	public String getGender() {
+		return gender;
+	}
+
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	
+	
 }

@@ -20,7 +20,7 @@ import com.keerthana.demo.service.LoginEmpService;
 import com.keerthana.demo.serviceimpl.EmailServiceimpl;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/user")
 public class LoginEmpController {
 
@@ -28,13 +28,7 @@ public class LoginEmpController {
 		@Autowired
 		LoginEmpService userservice;
 
-		// to insert the data
-//		@PostMapping("/doUserInsert")
-//		public LoginEmp insertUser(@RequestBody LoginEmp newUser) {
-//			newUser.setUserPassword("12345");
-//			return userservice.insertUser(newUser);
-//
-//		}
+	
 		
 		@Autowired
 	    private EmailServiceimpl emailService;
@@ -44,11 +38,12 @@ public class LoginEmpController {
 	        newUser.setUserPassword("12345");
 	        LoginEmp insertedUser = userservice.insertUser(newUser);
 
-	        // Send email after inserting the user
+	       
 	        if (insertedUser != null) {
 	            String subject = "Welcome to the Company";
 	            String text = "Hello " + insertedUser.getUserName() + ",\n\n"
 	                        + "Your account has been created successfully. You can login with your Username "+insertedUser.getUserName()+" & temporary password is 12345.\n\n"
+	                        +"Please update your new password as soon as possible\n"
 	                        + "Best Regards,\nCompany Team";
 
 	            emailService.sendSimpleMessage(insertedUser.getUserEmail(), subject, text);
@@ -63,37 +58,19 @@ public class LoginEmpController {
 			return userservice.updateUser(user);
 		}
 
-		// to get all the data from the database
+		
 		@GetMapping("/getAllUserList")
 		public List<LoginEmp> getUsers() {
 			return userservice.getUsers();
 		}
 
-		// get by id
+		
 		@GetMapping("/GetByUserId/{userId}")
 		public LoginEmp find(@PathVariable("userId") int userId) {
 			return userservice.userfind(userId);
 		}
 
-//		@GetMapping("/loginUser/{userName}/{userPassword}")
-//		public LoginEmp loginUser(@PathVariable("userName") String userName,
-//				@PathVariable("userPassword") String userPassword) {
-//
-//			return userservice.userLogin(userName, userPassword);
-//
-//		}
-		
-//		 @GetMapping("/loginUser/{userName}/{userPassword}")
-//		    public ResponseEntity<String> getUserRole(@PathVariable("userName") String userName,
-//		                                               @PathVariable("userPassword") String userPassword) {
-//		        String role = userservice.getUserRole(userName, userPassword);
-//		        if (role != null) {
-//		            return ResponseEntity.ok(role); // Return the role
-//		        } else {
-//		            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // Handle unauthorized access
-//		        }
-//		    }
-//		
+
 
 		@GetMapping("/getAllUsersById")
 		public List<LoginEmp> getAllUserListById(int userId) {
@@ -105,9 +82,9 @@ public class LoginEmpController {
 		                                                        @PathVariable("userPassword") String userPassword) {
 		    Map<String, Object> userDetails = userservice.getUserDetails(userName, userPassword);
 		    if (userDetails != null) {
-		        return ResponseEntity.ok(userDetails); // Return userId and role
+		        return ResponseEntity.ok(userDetails); 
 		    } else {
-		        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // Handle unauthorized access
+		        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); 
 		    }
 		}
 

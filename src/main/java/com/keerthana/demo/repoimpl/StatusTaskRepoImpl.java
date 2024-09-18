@@ -52,7 +52,7 @@ public class StatusTaskRepoImpl implements StatusTaskRepo {
 	@Override
 	public List<StatusTask> findByuserId(int userId) {
 
-		// JPQL query to find StatusTask by userId
+		
 		String jpql = "SELECT st FROM StatusTask st WHERE st.emp.userId = :userId";
 		TypedQuery<StatusTask> query = entityManager.createQuery(jpql, StatusTask.class);
 		query.setParameter("userId", userId);
